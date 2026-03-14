@@ -22,6 +22,36 @@ color:white;
 overflow:hidden;
 }
 
+<div id="player" style="display:none;"></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+var player;
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'IwBS6QGsH_4',
+        playerVars: {
+            autoplay: 1,
+            loop: 1,
+            playlist: 'IwBS6QGsH_4'
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    event.target.setVolume(50); // 50% volume
+    event.target.playVideo();
+}
+</script>
+
+
 /* Background */
 .background{
 position:fixed;
