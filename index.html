@@ -1,56 +1,28 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlas Studios Launch Countdown</title>
+<title>UKRP Launch</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: Arial, Helvetica, sans-serif;
+font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 color:white;
 overflow:hidden;
 }
-
-<div id="player" style="display:none;"></div>
-
-<script src="https://www.youtube.com/iframe_api"></script>
-
-<script>
-var player;
-
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: 'IwBS6QGsH_4',
-        playerVars: {
-            autoplay: 1,
-            loop: 1,
-            playlist: 'IwBS6QGsH_4'
-        },
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    event.target.setVolume(50); // 50% volume
-    event.target.playVideo();
-}
-</script>
-
 
 /* Background */
 .background{
@@ -60,9 +32,9 @@ left:0;
 width:100%;
 height:100%;
 background:url("background.png") center/cover no-repeat;
-filter: blur(6px);
-transform: scale(1.1);
-z-index:-2;
+filter:blur(7px);
+transform:scale(1.1);
+z-index:-3;
 }
 
 /* Dark overlay */
@@ -72,31 +44,70 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.55);
+background:rgba(0,0,0,0.6);
+z-index:-2;
+}
+
+/* Emergency red lights */
+.lights{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
 z-index:-1;
 }
 
-/* Main content */
+.light{
+position:absolute;
+width:600px;
+height:600px;
+border-radius:50%;
+background:radial-gradient(circle, rgba(255,0,0,0.4) 0%, rgba(255,0,0,0) 70%);
+animation:flash 3s infinite;
+}
+
+.light.left{
+left:-200px;
+top:20%;
+animation-delay:0s;
+}
+
+.light.right{
+right:-200px;
+top:40%;
+animation-delay:1.5s;
+}
+
+@keyframes flash{
+0%{opacity:0}
+25%{opacity:.8}
+50%{opacity:0}
+75%{opacity:.8}
+100%{opacity:0}
+}
+
+/* Content */
 .container{
 text-align:center;
 }
 
 h1{
-font-size:48px;
-margin-bottom:20px;
-letter-spacing:2px;
-}
-
-.countdown{
-font-size:64px;
-font-weight:bold;
+font-size:55px;
 letter-spacing:3px;
+margin-bottom:20px;
 }
 
-.label{
+#countdown{
+font-size:70px;
+font-weight:bold;
+letter-spacing:4px;
+}
+
+.sub{
 margin-top:10px;
-font-size:16px;
-opacity:0.8;
+opacity:.8;
 }
 
 .footer{
@@ -105,8 +116,9 @@ bottom:20px;
 width:100%;
 text-align:center;
 font-size:14px;
-opacity:0.7;
+opacity:.7;
 }
+
 </style>
 </head>
 
@@ -115,17 +127,24 @@ opacity:0.7;
 <div class="background"></div>
 <div class="overlay"></div>
 
+<div class="lights">
+<div class="light left"></div>
+<div class="light right"></div>
+</div>
+
 <div class="container">
-<h1>Atlas Studios Server Launch</h1>
-<div class="countdown" id="countdown">Loading...</div>
-<div class="label">Until April 12 • 17:00</div>
+<h1>UKRP SERVER LAUNCH</h1>
+<div id="countdown">Loading...</div>
+<div class="sub">April 12 • 17:00 UK Time</div>
 </div>
 
 <div class="footer">
-Coming Soon...
+UKRP Community
 </div>
 
+<!-- Countdown -->
 <script>
+
 const launchDate = new Date("April 12, 2026 17:00:00 GMT+0100").getTime();
 
 const timer = setInterval(function(){
@@ -133,10 +152,10 @@ const timer = setInterval(function(){
 const now = new Date().getTime();
 const distance = launchDate - now;
 
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+const days = Math.floor(distance / (1000*60*60*24));
+const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+const seconds = Math.floor((distance % (1000*60))/1000);
 
 document.getElementById("countdown").innerHTML =
 days + "d " + hours + "h " + minutes + "m " + seconds + "s";
@@ -147,7 +166,54 @@ document.getElementById("countdown").innerHTML = "SERVER IS LIVE";
 }
 
 },1000);
+
+</script>
+
+<!-- Hidden YouTube Player -->
+<div id="player" style="display:none;"></div>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+
+let player;
+let volume = 0;
+
+function onYouTubeIframeAPIReady() {
+player = new YT.Player('player', {
+height: '0',
+width: '0',
+videoId: 'IwBS6QGsH_4',
+playerVars: {
+autoplay: 1,
+loop: 1,
+playlist: 'IwBS6QGsH_4'
+},
+events: {
+'onReady': onPlayerReady
+}
+});
+}
+
+function onPlayerReady(event) {
+
+event.target.setVolume(0);
+event.target.playVideo();
+
+let fade = setInterval(function(){
+
+if(volume < 50){
+volume += 1;
+player.setVolume(volume);
+}else{
+clearInterval(fade);
+}
+
+},200);
+
+}
+
 </script>
 
 </body>
 </html>
+```
