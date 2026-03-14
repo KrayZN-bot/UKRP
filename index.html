@@ -33,7 +33,7 @@ height:100%;
 background:url("background.png") center/cover no-repeat;
 filter: blur(6px);
 transform: scale(1.1);
-z-index:-3;
+z-index:-2;
 }
 
 /* Dark overlay */
@@ -44,65 +44,12 @@ left:0;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.55);
-z-index:-2;
-}
-
-/* Emergency Lights */
-.lights{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
 z-index:-1;
-}
-
-.light{
-position:absolute;
-width:700px;
-height:700px;
-border-radius:50%;
-opacity:0;
-}
-
-.red{
-left:-200px;
-top:30%;
-background:radial-gradient(circle, rgba(255,0,0,0.5) 0%, rgba(255,0,0,0) 70%);
-animation:redFlash 3s infinite;
-}
-
-.blue{
-right:-200px;
-top:30%;
-background:radial-gradient(circle, rgba(0,120,255,0.5) 0%, rgba(0,120,255,0) 70%);
-animation:blueFlash 3s infinite;
-}
-
-@keyframes redFlash{
-0%{opacity:0}
-10%{opacity:.9}
-20%{opacity:0}
-30%{opacity:.9}
-40%{opacity:0}
-100%{opacity:0}
-}
-
-@keyframes blueFlash{
-50%{opacity:0}
-60%{opacity:.9}
-70%{opacity:0}
-80%{opacity:.9}
-90%{opacity:0}
-100%{opacity:0}
 }
 
 /* Main content */
 .container{
 text-align:center;
-position:relative;
-z-index:2;
 }
 
 h1{
@@ -139,11 +86,6 @@ opacity:0.7;
 <div class="background"></div>
 <div class="overlay"></div>
 
-<div class="lights">
-<div class="light red"></div>
-<div class="light blue"></div>
-</div>
-
 <div class="container">
 <h1>Atlas Studios Server Launch</h1>
 <div class="countdown" id="countdown">Loading...</div>
@@ -151,7 +93,7 @@ opacity:0.7;
 </div>
 
 <div class="footer">
-UKRP Community
+Atlas Studios
 </div>
 
 <script>
